@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FileText, HardDrive, Shield } from 'lucide-react';
 
-function Layout() {
+function Landing() {
   return (
     <div className="text-white">
       <div className="text-center mb-16">
@@ -78,4 +78,4 @@ function Layout() {
   );
 }
 
-export default Layout;
+export default Landing;
