@@ -26,9 +26,9 @@ function FileUpload({ onUpload, uploading, privacy, onPrivacyChange }: FileUploa
           value={privacy}
           onChange={handlePrivacyChange}
         >
-          <option value="public">Public</option>
-          <option value="private">Private</option>
-          <option value="token-gated">Token Gated</option>
+          <option className="text-white bg-gray-700" value="public">Public</option>
+          <option className="text-white bg-gray-700" value="private">Private</option>
+          <option className="text-white bg-gray-700" value="token-gated">Token Gated</option>
         </select>
         
         <label className="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg cursor-pointer transition">
