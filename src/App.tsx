@@ -5,20 +5,46 @@ import Footer from './components/footer';
 import FileSharing from './Pages/Filesharing';
 import FileStorage from './Pages/Filestorage';
 import Landing from './Pages/Landing';
+import ChainSelector from './components/chainselector';
+import DisconnectConfirmation from './components/Disconnectedwallet';
+import { useWallet } from './hooks/usewallet';
+import { walletinfo } from './types/wallet';
 
 function App() {
-  const [isConnected, setIsConnected] = useState(false);
-  const displayAddress = "0x1234...5678";
+  const { wallet, connect, disconnect } = useWallet();
+  const [isChainSelectorOpen, setIsChainSelectorOpen] = useState(false);
+  const [isDisconnectOpen, setIsDisconnectOpen] = useState(false);
 
   const handleConnectWallet = () => {
-    setIsConnected(!isConnected);
+    if (wallet) {
+      setIsDisconnectOpen(true);
+      return;
+    }
+    setIsChainSelectorOpen(true);
   };
+
+  const handleSelectWallet = async (selectedWallet: walletinfo) => {
+    try {
+      if (!selectedWallet.installed) {
+        alert(`Please install ${selectedWallet.name} wallet!`);
+        return;
+      }
+      await connect(selectedWallet);
+    } catch (error) {
+      console.error('Failed to connect wallet:', error);
+      alert('Failed to connect wallet. Please try again.');
+    }
+  };
+
+  const displayAddress = wallet ? 
+    `${wallet.address.slice(0, 6)}...${wallet.address.slice(-4)}` : 
+    '';
 
   return (
     <Router>
       <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex flex-col">
         <Navbar 
-          isConnected={isConnected}
+          isConnected={!!wallet}
           displayAddress={displayAddress}
           onConnectWallet={handleConnectWallet}
         />
@@ -30,6 +56,19 @@ function App() {
             <Route path="/storage" element={<FileStorage />} />
           </Routes>
         </main>
+
+        <ChainSelector 
+          isOpen={isChainSelectorOpen}
+          onClose={() => setIsChainSelectorOpen(false)}
+          onSelectWallet={handleSelectWallet}
+        />
+
+        <DisconnectConfirmation
+          isOpen={isDisconnectOpen}
+          onClose={() => setIsDisconnectOpen(false)}
+          onDisconnect={disconnect}
+          walletName={wallet?.walletname || ''}
+        />
 
         <Footer />
       </div>
