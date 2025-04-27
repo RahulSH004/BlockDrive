@@ -1,55 +1,105 @@
 # BlockDrive
 
+BlockDrive is a decentralized file storage and file sharing platform powered by blockchain wallets. It allows users to upload, store, and share files directly from their crypto wallets, ensuring ownership, privacy, and decentralization.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project uses **React**, **TypeScript**, **TailwindCSS**, **Vite**, **IPFS**, and integrates with **EVM** (MetaMask) and **Solana** wallets.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- Decentralized File Upload (via IPFS)
+- Peer-to-Peer File Sharing (encrypted)
+- Wallet-Based Authentication
+  - Supports **EVM wallets** (like MetaMask)
+  - Supports **Solana wallets** (like Phantom)
+- Multiple Wallet Options on Connect
+- Responsive and Modern UI
+- Built using Vite + React + TypeScript
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Project Structure
+
+```bash
+decentra-portal/
+├── public/
+│   └── index.html
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   ├── Navbar.tsx
+│   │   ├── FileUpload.tsx
+│   │   ├── FileList.tsx
+│   │   └── Loader.tsx
+│   ├── pages/
+│   │   ├── Home.tsx
+│   │   ├── FileSharing.tsx
+│   │   └── FileStorage.tsx
+│   ├── services/
+│   │   ├── ipfsService.ts
+│   │   └── walletService.ts
+│   ├── App.tsx
+│   ├── index.css
+│   └── routes.tsx
+├── tailwind.config.js
+├── postcss.config.js
+├── package.json
+└── README.md
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Installation
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+git clone https://github.com/yourusername/blockdrive.git
+cd blockdrive
+npm install
+npm run dev
 ```
+
+---
+
+## Tech Stack
+
+- **Frontend**: React + TypeScript + TailwindCSS
+- **State Management**: React Context + Hooks
+- **Wallets**:
+  - EVM: `@wagmi/core`, `@wagmi/connectors`, `viem`
+  - Solana: `@solana/wallet-adapter-react`, `@solana/wallet-adapter-wallets`, `@solana/wallet-adapter-react-ui`
+- **Storage**: IPFS (via Web3Storage, NFT.Storage, etc.)
+- **Routing**: React Router
+- **Bundler**: Vite
+
+---
+
+## How Wallet Connect Works
+
+- User clicks on `Connect Wallet`.
+- Option menu shows **EVM Wallets** and **Solana Wallets**.
+- According to user selection, it initializes:
+  - **EVM Wallets** connection through Wagmi.
+  - **Solana Wallets** connection through Wallet Adapter.
+- File uploads and encryption tied to user's wallet address.
+
+---
+
+## Future Improvements
+
+- Add support for File Encryption/Decryption
+- User dashboard with storage usage statistics
+- Access control using smart contracts
+- Payment gateway integration for premium storage
+
+---
+
+## License
+
+This project is open-source under the [MIT License](LICENSE).
+
+---
+
+> Developed with ❤️ by Rahul for decentralizing data ownership and access.
+
+
